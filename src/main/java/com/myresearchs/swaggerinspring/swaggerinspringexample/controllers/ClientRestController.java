@@ -36,7 +36,7 @@ public class ClientRestController {
     }
 
     @ApiOperation(value = "Get client with specified id from base", response = Client.class)
-    @GetMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Client getClient(@PathVariable("id") long id){
         return service.getClientById(id);
     }

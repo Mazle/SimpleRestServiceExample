@@ -26,6 +26,13 @@ public class Client {
     @Column(name = "description", nullable = false)
     private String description;
 
+    public Client(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+    public Client() {
+    }
+
     public long getId() {
         return id;
     }
