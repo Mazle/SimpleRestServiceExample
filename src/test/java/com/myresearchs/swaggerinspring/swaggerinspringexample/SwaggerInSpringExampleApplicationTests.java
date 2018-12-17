@@ -52,12 +52,36 @@ public class SwaggerInSpringExampleApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(result -> {
-					assertThat("Entities fields are different",
-							(
-									getClientFromMvcResult(result).getName().equals(MODEL.getName()))
-									&&
-									getClientFromMvcResult(result).getDescription().equals(MODEL.getDescription())
-							);
+					assertThat("Entities fields are different", matchWithModel(result));
+						}
+				);
+	}
+	@Test
+	public void postClientTest() throws Exception {
+		this.mockMvc.perform(post("/client").contentType(MediaType.APPLICATION_JSON).content(JSON_MAPPER.writeValueAsString(MODEL)))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(result -> {
+							assertThat("Entities fields are different", matchWithModel(result));
+						}
+				);
+	}
+	@Test
+	public void putClientTest() throws Exception {
+		final long[] testResultId = new long[1];
+		this.mockMvc.perform(post("/client").contentType(MediaType.APPLICATION_JSON).content(JSON_MAPPER.writeValueAsString(MODEL)))
+				.andDo(print())
+				.andDo(mvcResult -> testResultId[0] = getClientFromMvcResult(mvcResult).getId());
+		Client changedClient = new Client("Changed","Changed");
+		this.mockMvc.perform(put("/client/"+testResultId[0])
+				.contentType(MediaType.APPLICATION_JSON).content(JSON_MAPPER.writeValueAsString(changedClient))
+				)
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(result -> {
+							assertThat("Entities fields are the same after changing", !matchWithModel(result));
 						}
 				);
 	}
@@ -66,5 +90,10 @@ public class SwaggerInSpringExampleApplicationTests {
 
 	private Client getClientFromMvcResult(MvcResult result) throws IOException {
 		return JSON_MAPPER.readValue(result.getResponse().getContentAsString(),Client.class);
+	}
+	private boolean matchWithModel(MvcResult result) throws IOException {
+		return (getClientFromMvcResult(result).getName().equals(MODEL.getName()))
+				&&
+				getClientFromMvcResult(result).getDescription().equals(MODEL.getDescription());
 	}
 }
