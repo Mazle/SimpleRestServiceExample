@@ -16,6 +16,10 @@
 *.iml
 *.ipr
 
+
+### Logs
+derby.log
+
 ### NetBeans ###
 /nbproject/private/
 /build/

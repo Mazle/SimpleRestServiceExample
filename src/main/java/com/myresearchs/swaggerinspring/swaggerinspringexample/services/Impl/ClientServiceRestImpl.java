@@ -11,7 +11,12 @@ import java.util.List;
 @Service
 public class ClientServiceRestImpl implements ClientService {
 
-    private ClientRepository repository;
+    private final ClientRepository repository;
+
+    @Autowired
+    public ClientServiceRestImpl(ClientRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Client addClient(Client client) {
@@ -31,12 +36,7 @@ public class ClientServiceRestImpl implements ClientService {
 
     @Override
     public Client getClientById(long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Autowired
-    public void setRepository(ClientRepository repository) {
-        this.repository = repository;
+        return repository.findById(id).orElseThrow(NullPointerException::new);
     }
 
 }

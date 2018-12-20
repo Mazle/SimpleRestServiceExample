@@ -36,32 +36,9 @@ public class Configuration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("TITLE")
-                .description("DESCRIPTION")
-                .version("VERSION")
-                .termsOfServiceUrl("http://terms-of-services.url")
-                .license("LICENSE")
-                .licenseUrl("http://url-to-license.com")
+                .title("Client Service")
+                .description("This service stores client data.")
+                .version("1.00")
                 .build();
     }
-    /* @Autowired
-    DataSource dataSource;
-
-    @Bean
-    public JdbcTemplate getJdbcTemplate() {
-        return new JdbcTemplate(dataSource);
-    }
-    @Bean
-    public DataSource dataSource() {
-
-        // no need shutdown, EmbeddedDatabaseFactoryBean will take care of this
-        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        EmbeddedDatabase db = builder
-                .setType(EmbeddedDatabaseType.DERBY) //.H2 or .DERBY
-                .addScript("db/sql/create-db.sql")
-                .addScript("db/sql/insert-data.sql")
-                .setName("clients")
-                .build();
-        return db;
-    }*/
 }
