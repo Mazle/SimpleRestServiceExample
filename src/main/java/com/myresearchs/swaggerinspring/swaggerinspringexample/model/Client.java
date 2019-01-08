@@ -15,7 +15,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 @Table(name = "clients")
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "rest_service_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "rest_service_seq", sequenceName = "rest_service_seq",allocationSize = 1)
     @ApiModelProperty(notes = "id",name="id",required=true,value="test id")
     private long id;
 

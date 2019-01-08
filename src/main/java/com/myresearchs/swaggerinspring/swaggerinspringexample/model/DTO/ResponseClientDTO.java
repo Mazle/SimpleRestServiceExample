@@ -18,6 +18,7 @@ public class ResponseClientDTO {
     private String description;
 
     public ResponseClientDTO(Client client) {
+        this.id = client.getId();
         this.name = client.getName();
         this.description = client.getDescription();
     }

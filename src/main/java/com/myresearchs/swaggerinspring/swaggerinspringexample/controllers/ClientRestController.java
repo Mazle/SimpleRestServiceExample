@@ -28,28 +28,26 @@ public class ClientRestController {
 
     @ApiOperation(value = "Add new Client in base")
     @PostMapping()
-    public Client addClient(@RequestBody RequestClientDTO clientDto){
-        return service.addClient(new Client(clientDto.getName(),clientDto.getDescription()));
+    public ResponseClientDTO addClient(@RequestBody RequestClientDTO clientDto){
+        return service.addClient(clientDto);
     }
 
     @ApiOperation(value = "Update client with specified id")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Client updateClient(@PathVariable("id") long id, @RequestBody RequestClientDTO clientDto){
-        return service.updateClient(id,new Client(clientDto.getName(),clientDto.getDescription()));
+    public ResponseClientDTO updateClient(@PathVariable("id") long id, @RequestBody RequestClientDTO clientDto){
+        return service.updateClient(id, clientDto);
     }
 
     @ApiOperation(value = "Return List of all clients from base")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ResponseClientDTO> getAllClients(){
-        List<ResponseClientDTO> result = new ArrayList<>();
-        service.getAllClients().forEach(client -> result.add(new ResponseClientDTO(client)));
-        return result;
+        return  service.getAllClients();
     }
 
     @ApiOperation(value = "Get client with specified id from base")
     @GetMapping(value = "/{id}")
     public ResponseClientDTO getClient(@PathVariable("id") long id){
-        return new ResponseClientDTO(service.getClientById(id));
+        return service.getClientById(id);
     }
 
 }
