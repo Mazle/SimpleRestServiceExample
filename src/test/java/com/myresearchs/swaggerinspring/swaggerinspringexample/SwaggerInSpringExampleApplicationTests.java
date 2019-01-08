@@ -103,7 +103,7 @@ public class SwaggerInSpringExampleApplicationTests {
 						"description", is(CHANGED_MARKER + REQUEST_MODEL.getDescription())
 					);
 	}
-	
+
 	@Before
 	public void initRestAssured() {
 		RestAssured.port = serverPort;
